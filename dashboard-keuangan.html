@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard AMD</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-alt: #eef1f5;
+      --border: #dfe3e8;
+      --text: #1c2430;
+      --text-muted: #68727e;
+      --accent: #1b4f8c;
+      --accent-dark: #123a68;
+      --accent-soft: #e8f0fa;
+      --ok: #1e7e46;
+      --ok-soft: #e7f6ec;
+      --warn: #a15c00;
+      --warn-soft: #fdf1df;
+      --bad: #b3261e;
+      --bad-soft: #fbe9e7;
+      --shadow: 0 1px 2px rgba(20, 24, 30, .04), 0 1px 10px rgba(20, 24, 30, .03);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      padding: 0 0 48px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Public Sans", sans-serif;
+    }
+
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .page {
+      opacity: 0;
+      transition: opacity .22s ease;
+    }
+
+    .page.enter {
+      opacity: 1;
+    }
+
+    /* ---------- Topbar ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      padding: 16px 28px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .brand .mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .brand .word {
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -.01em;
+    }
+
+    .brand .badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+    }
+
+    nav.navtabs {
+      display: flex;
+      gap: 24px;
+      flex: 1 1 auto;
+    }
+
+    .navtab {
+      appearance: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 8px 0 10px;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+
+    .navtab.active {
+      color: var(--accent);
+      font-weight: 700;
+      border-bottom-color: var(--accent);
+    }
+
+    .navtab:hover {
+      color: var(--text);
+    }
+
+    .topbar .right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+    }
+
+    .right .who {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* ---------- Page shell ---------- */
+    .page-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 28px 0;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .page-header p {
+      margin: 5px 0 0;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 14px;
+    }
+
+    /* ---------- KPI cards ---------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi-card .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .kpi-card .value {
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 8px;
+      font-family: "IBM Plex Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kpi-card .caption {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    /* ---------- Charts (dummy) ---------- */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .chart-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .chart-dummy {
+      height: 230px;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      background: var(--surface-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .chart-dummy.standalone {
+      height: 420px;
+    }
+
+    /* ---------- Table ---------- */
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 36px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      min-width: 640px;
+    }
+
+    thead th {
+      text-align: left;
+      background: var(--surface-alt);
+      color: var(--text);
+      font-weight: 600;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--bg);
+    }
+
+    tbody td.name {
+      font-weight: 600;
+    }
+
+    tbody tr.clickable {
+      cursor: pointer;
+    }
+
+    tbody tr.clickable:hover {
+      background: var(--accent-soft);
+    }
+
+    tbody tr.clickable td.name {
+      color: var(--accent);
+    }
+
+    td.num {
+      font-family: "IBM Plex Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    .pill.ok {
+      color: var(--ok);
+      background: var(--ok-soft);
+    }
+
+    .pill.warn {
+      color: var(--warn);
+      background: var(--warn-soft);
+    }
+
+    .pill.bad {
+      color: var(--bad);
+      background: var(--bad-soft);
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--accent);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 9px 18px;
+      border-radius: 7px;
+      background: var(--accent);
+      color: #fff;
+      transition: background .15s;
+    }
+
+    .btn:hover {
+      background: var(--accent-dark);
+    }
+
+    /* ---------- Overview boxes ---------- */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .overview-grid.full {
+      grid-template-columns: 1fr;
+    }
+
+    .module-box {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 260px;
+      cursor: pointer;
+      text-align: center;
+      padding: 18px;
+      transition: border-color .15s, transform .15s;
+    }
+
+    .module-box.tall {
+      height: 320px;
+    }
+
+    .module-box:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .module-box .name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .module-box .hint {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* ---------- Detail page ---------- */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--accent);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 0 0 16px;
+      margin: 0;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .detail-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 2px 0 2px;
+      letter-spacing: -.01em;
+    }
+
+    .detail-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 420px) 1fr;
+      gap: 28px;
+      padding-bottom: 44px;
+    }
+
+    @media (max-width:760px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .media-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .media-dummy {
+      height: 220px;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      background: var(--surface-alt);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .media-photo {
+      height: 220px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .media-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s ease;
+    }
+
+    .media-photo:hover img {
+      transform: scale(1.04);
+    }
+
+    .media-map {
+      height: 220px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .media-map iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .map-link {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: var(--surface);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      transition: background .2s;
+    }
+
+    .map-link:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .media-dummy .coord {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .info-list h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .info-row {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-row .label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .info-row .value {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ---------- Toast ---------- */
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translate(-50%, 20px);
+      background: var(--text);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all .25s ease;
+      z-index: 50;
+      max-width: 90vw;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark"></span>
+      <span class="word">Dashboard AMD</span>
+      <span class="badge">Wireframe</span>
+    </div>
+    <nav class="navtabs">
+      <button class="navtab" data-goto="overview">Overview</button>
+      <button class="navtab" data-goto="capex">CAPEX</button>
+      <button class="navtab" data-goto="extracomp">Extracomp</button>
+      <button class="navtab" data-goto="iswara">Iswara</button>
+      <button class="navtab" data-goto="piutang">Piutang Bermasalah</button>
+    </nav>
+    <div class="right">
+      <span class="who">Admin</span>
+      <div class="avatar"></div>
+    </div>
+  </header>
+
+  <!-- ===================== OVERVIEW ===================== -->
+  <section class="page" id="overview">
+    <div class="page-inner">
+      <div class="page-header">
+        <h1>Overview</h1>
+        <p>Pilih modul untuk melihat detail</p>
+      </div>
+
+      <div class="overview-grid">
+        <div class="module-box" data-goto="capex">
+          <div class="name">CAPEX</div>
+          <div class="hint">[ Grafik menyusul ]</div>
+        </div>
+        <div class="module-box" data-goto="extracomp">
+          <div class="name">EXTRACOMP</div>
+          <div class="hint">[ Grafik menyusul ]</div>
+        </div>
+        <div class="module-box" data-goto="iswara">
+          <div class="name">ISWARA</div>
+          <div class="hint">[ Grafik menyusul ]</div>
+        </div>
+      </div>
+      <div class="overview-grid full">
+        <div class="module-box tall" data-goto="piutang">
+          <div class="name">PIUTANG BERMASALAH</div>
+          <div class="hint">[ Grafik menyusul ]</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPEX ===================== -->
+  <section class="page" id="capex" hidden>
+    <div class="page-inner">
+      <div class="page-header">
+        <h1>CAPEX</h1>
+        <p>Monitoring aset dan realisasi belanja modal</p>
+      </div>
+
+      <div class="table-toolbar">
+        <div class="section-title" style="margin:0;">Daftar Aset CAPEX (Inventory Number)</div>
+        <button class="btn" id="uploadBtn">+ Upload Data</button>
+        <input type="file" id="uploadInput" accept=".csv,.xlsx,.xls" hidden>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Inventory Number</th>
+              <th>Acquisition Value</th>
+              <th>Accum. Depreciation</th>
+              <th>Book Value</th>
+              <th>KJPP Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable" data-goto="capex-detail">
+              <td class="name">WIKASATRIAN</td>
+              <td class="num">Rp 93.296.272.001</td>
+              <td class="num">-Rp 25.006.454.172</td>
+              <td class="num">Rp 68.289.817.829</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">WIKAPRATAMA</td>
+              <td class="num">Rp 13.067.148.614</td>
+              <td class="num">-Rp 7.370.410.116</td>
+              <td class="num">Rp 5.696.738.498</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">WIKA TOWER II</td>
+              <td class="num">Rp 305.590.508.380</td>
+              <td class="num">-Rp 144.102.980.634</td>
+              <td class="num">Rp 161.487.527.746</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">WIKA TOWER I</td>
+              <td class="num">Rp 48.908.550.728</td>
+              <td class="num">-Rp 40.819.768.637</td>
+              <td class="num">Rp 8.088.782.091</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">SEKUPANG BATAM</td>
+              <td class="num">Rp 1.619.902.061</td>
+              <td class="num">Rp 0</td>
+              <td class="num">Rp 1.619.902.061</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">PKP CIRACAS</td>
+              <td class="num">Rp 2.644.609.186</td>
+              <td class="num">-Rp 91.808.186</td>
+              <td class="num">Rp 2.552.801.000</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">KOMPLEKS INDUSTRI WIKA</td>
+              <td class="num">Rp 23.041.747.407</td>
+              <td class="num">-Rp 2.455.272.534</td>
+              <td class="num">Rp 20.586.474.873</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">KANTOR SEMARANG</td>
+              <td class="num">Rp 1.799.896.851</td>
+              <td class="num">-Rp 203.892.851</td>
+              <td class="num">Rp 1.596.004.000</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">KANTOR MEDAN</td>
+              <td class="num">Rp 2.182.581.294</td>
+              <td class="num">-Rp 1.063.572.294</td>
+              <td class="num">Rp 1.119.009.000</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">KANTOR MATARAM</td>
+              <td class="num">Rp 708.896.104</td>
+              <td class="num">-Rp 92.895.104</td>
+              <td class="num">Rp 616.001.000</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">KANTOR LAMPUNG</td>
+              <td class="num">Rp 1.871.000.000</td>
+              <td class="num">-Rp 34.154.167</td>
+              <td class="num">Rp 1.836.845.833</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">ASET LAIN</td>
+              <td class="num">Rp 192.251.842.975</td>
+              <td class="num">-Rp 166.121.250.594</td>
+              <td class="num">Rp 26.130.592.381</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr>
+              <td class="name">&ndash;</td>
+              <td class="num">Rp 740.000.000</td>
+              <td class="num">-Rp 134.253.472</td>
+              <td class="num">Rp 605.746.528</td>
+              <td class="num">&ndash;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPEX DETAIL ===================== -->
+  <section class="page" id="capex-detail" hidden>
+    <div class="page-inner">
+      <button class="back-link" data-goto="capex">&larr; Kembali ke Daftar Aset CAPEX</button>
+      <h2 class="detail-title">WIKASATRIAN</h2>
+      <p class="detail-sub">Detail Aset CAPEX</p>
+
+      <div class="detail-grid">
+        <div class="media-stack">
+          <div class="media-photo">
+            <img src="wikasatrian.jpg" alt="Foto Aset Wikasatrian" loading="lazy">
+          </div>
+          <div class="media-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.9788!2d106.8568599!3d-6.6460086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c88b3e4211ff%3A0xb5ecc882ec9fd75c!2sWikasatrian!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" title="Peta Lokasi Wikasatrian">
+            </iframe>
+            <a class="map-link" href="https://maps.app.goo.gl/ZwYQkTJnmKCVfatr7" target="_blank" rel="noopener">
+              🗺 Buka di Google Maps
+            </a>
+          </div>
+        </div>
+        <div class="info-list">
+          <h3>Informasi Aset</h3>
+          <div class="info-row">
+            <div class="label">Nomor Inventaris</div>
+            <div class="value">WIKASATRIAN</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Lokasi</div>
+            <div class="value">Jl. Pasir Angin, Cipayung Datar, Kec. Megamendung, Kabupaten Bogor, Jawa Barat 16770
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="label">Titik Koordinat</div>
+            <div class="value mono">-6.645827428740509, 106.85943479573297</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Luas Tanah / Bangunan</div>
+            <div class="value">50.000 m&sup2; / 10.000 m&sup2;</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Nilai Perolehan</div>
+            <div class="value mono">Rp 93.296.272.001</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Akumulasi Penyusutan</div>
+            <div class="value mono">-Rp 25.006.454.172</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Nilai Buku</div>
+            <div class="value mono">Rp 68.289.817.829</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Tahun KJPP Terakhir</div>
+            <div class="value">2024</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Status Pembayaran PBB</div>
+            <div class="value">Lunas s.d. 2026</div>
+          </div>
+          <div class="info-row">
+            <div class="label">Status Sertifikat</div>
+            <div class="value">SHM No. 1234/Wikasatrian &ndash; Aktif</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXTRACOMP ===================== -->
+  <section class="page" id="extracomp" hidden>
+    <div class="page-inner">
+      <div class="page-header">
+        <h1>Extracomp</h1>
+        <p>Pengelolaan aset/barang perusahaan</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="label">Total Aset Tercatat</div>
+          <div class="value">1.284 Unit</div>
+          <div class="caption">Per 18 Sep 2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Total Nilai Buku Aset</div>
+          <div class="value">Rp 45.6 M</div>
+          <div class="caption">Setelah penyusutan</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Aset Dalam Pemeliharaan</div>
+          <div class="value">37 Unit</div>
+          <div class="caption">5 menunggu spare part</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Aset Habis Susut</div>
+          <div class="value">156 Unit</div>
+          <div class="caption">Perlu evaluasi replacement</div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Distribusi Aset per Kategori</h3>
+          <div class="chart-dummy">[ Grafik menyusul ]</div>
+        </div>
+        <div class="chart-card">
+          <h3>Kondisi Aset (Baik / Rusak / Hilang)</h3>
+          <div class="chart-dummy">[ Grafik menyusul ]</div>
+        </div>
+      </div>
+
+      <div class="section-title">Daftar Aset</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Kode Aset</th>
+              <th>Nama Aset</th>
+              <th>Kategori</th>
+              <th>Lokasi</th>
+              <th>Kondisi</th>
+              <th>Nilai Buku</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td class="mono">AST-0231</td>
+              <td class="name">Forklift Toyota 3T</td>
+              <td>Kendaraan Operasional</td>
+              <td>Gudang B</td>
+              <td><span class="pill ok">Baik</span></td>
+              <td class="num">Rp 185.000.000</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="mono">AST-0198</td>
+              <td class="name">Laptop Dell Latitude</td>
+              <td>IT Equipment</td>
+              <td>Kantor Pusat</td>
+              <td><span class="pill ok">Baik</span></td>
+              <td class="num">Rp 8.500.000</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td class="mono">AST-0450</td>
+              <td class="name">Mesin CNC Lini 2</td>
+              <td>Mesin Produksi</td>
+              <td>Pabrik Lini 2</td>
+              <td><span class="pill warn">Perlu Perbaikan</span></td>
+              <td class="num">Rp 620.000.000</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td class="mono">AST-0087</td>
+              <td class="name">AC Split 2 PK</td>
+              <td>Fasilitas Kantor</td>
+              <td>Kantor Cabang SBY</td>
+              <td><span class="pill ok">Baik</span></td>
+              <td class="num">Rp 4.200.000</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td class="mono">AST-0512</td>
+              <td class="name">Genset 100 KVA</td>
+              <td>Utilitas</td>
+              <td>Gudang A</td>
+              <td><span class="pill bad">Rusak</span></td>
+              <td class="num">Rp 95.000.000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ISWARA ===================== -->
+  <section class="page" id="iswara" hidden>
+    <div class="page-inner">
+      <div class="page-header">
+        <h1>Iswara</h1>
+        <p>Konten menyusul</p>
+      </div>
+
+      <div class="chart-dummy standalone">[ Konten menyusul ]</div>
+    </div>
+  </section>
+
+  <!-- ===================== PIUTANG BERMASALAH ===================== -->
+  <section class="page" id="piutang" hidden>
+    <div class="page-inner">
+      <div class="page-header">
+        <h1>Piutang Bermasalah</h1>
+        <p>Monitoring dan tindak lanjut piutang usaha bermasalah</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="label">Total Piutang Bermasalah</div>
+          <div class="value">Rp 3.2 M</div>
+          <div class="caption">18% dari total piutang</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Piutang &gt; 90 Hari</div>
+          <div class="value">Rp 1.1 M</div>
+          <div class="caption">9 debitur</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Jumlah Debitur Bermasalah</div>
+          <div class="value">27 Debitur</div>
+          <div class="caption">+3 bulan ini</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Tertagih (Bulan Ini)</div>
+          <div class="value">Rp 420 Jt</div>
+          <div class="caption">13 debitur</div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Aging Piutang (Bucket)</h3>
+          <div class="chart-dummy">[ Grafik menyusul ]</div>
+        </div>
+        <div class="chart-card">
+          <h3>Trend Piutang Bermasalah per Bulan</h3>
+          <div class="chart-dummy">[ Grafik menyusul ]</div>
+        </div>
+      </div>
+
+      <div class="section-title">Daftar Piutang Bermasalah</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Debitur</th>
+              <th>Nilai Piutang</th>
+              <th>Umur (Hari)</th>
+              <th>Kategori Aging</th>
+              <th>Status Tindak Lanjut</th>
+              <th>PIC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td class="name">PT Sinar Abadi</td>
+              <td class="num">Rp 450.000.000</td>
+              <td class="num">120</td>
+              <td><span class="pill bad">&gt;90 Hari</span></td>
+              <td>Somasi ke-2</td>
+              <td>Budi S.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="name">CV Makmur Jaya</td>
+              <td class="num">Rp 310.000.000</td>
+              <td class="num">75</td>
+              <td><span class="pill warn">61-90 Hari</span></td>
+              <td>Negosiasi</td>
+              <td>Siti A.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td class="name">PT Cahaya Mas</td>
+              <td class="num">Rp 275.000.000</td>
+              <td class="num">45</td>
+              <td><span class="pill warn">31-60 Hari</span></td>
+              <td>Reminder</td>
+              <td>Andi P.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td class="name">Koperasi Sejahtera</td>
+              <td class="num">Rp 190.000.000</td>
+              <td class="num">95</td>
+              <td><span class="pill bad">&gt;90 Hari</span></td>
+              <td>Somasi ke-1</td>
+              <td>Budi S.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td class="name">PT Delta Utama</td>
+              <td class="num">Rp 150.000.000</td>
+              <td class="num">20</td>
+              <td><span class="pill ok">0-30 Hari</span></td>
+              <td>Reminder</td>
+              <td>Rina W.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast"></div>
+
+  <script>
+    var tabMap = { overview: 'Overview', capex: 'CAPEX', 'capex-detail': 'CAPEX', extracomp: 'Extracomp', iswara: 'Iswara', piutang: 'Piutang Bermasalah' };
+
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(function (p) { p.hidden = (p.id !== id); p.classList.remove('enter'); });
+      var target = document.getElementById(id);
+      var label = tabMap[id];
+      document.querySelectorAll('.navtab').forEach(function (t) {
+        t.classList.toggle('active', t.textContent.trim() === label);
+      });
+      if (target) {
+        requestAnimationFrame(function () { target.classList.add('enter'); });
+      }
+      window.scrollTo(0, 0);
+    }
+
+    document.querySelectorAll('[data-goto]').forEach(function (el) {
+      el.addEventListener('click', function () { showPage(el.getAttribute('data-goto')); });
+    });
+
+    showPage('overview');
+
+    var toastEl = document.getElementById('toast');
+    var toastTimer = null;
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 3200);
+    }
+
+    var uploadBtn = document.getElementById('uploadBtn');
+    var uploadInput = document.getElementById('uploadInput');
+    if (uploadBtn && uploadInput) {
+      uploadBtn.addEventListener('click', function () { uploadInput.click(); });
+      uploadInput.addEventListener('change', function () {
+        if (uploadInput.files && uploadInput.files[0]) {
+          showToast('File "' + uploadInput.files[0].name + '" dipilih — fitur import otomatis akan aktif setelah backend siap.');
+        }
+        uploadInput.value = '';
+      });
+    }
+  </script>
+</body>
+
+</html>
