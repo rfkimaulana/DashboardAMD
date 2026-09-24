@@ -480,23 +480,70 @@
     }
 
     .media-photo {
-      height: 220px;
+      height: 260px;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border);
       position: relative;
+      background: #1c2430;
+    }
+
+    /* Latar blur dari foto yang sama, supaya foto utuh (contain) tidak menyisakan bidang kosong */
+    .media-photo-bg {
+      position: absolute;
+      inset: -20px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(18px) brightness(.7);
     }
 
     .media-photo img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .photo-count {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, .55);
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .photo-thumbs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .photo-thumbs button {
+      flex: 0 0 64px;
+      height: 48px;
+      padding: 0;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      background: none;
+      opacity: .7;
+    }
+
+    .photo-thumbs button.active {
+      border-color: var(--accent);
+      opacity: 1;
+    }
+
+    .photo-thumbs img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform .4s ease;
-    }
-
-    .media-photo:hover img {
-      transform: scale(1.04);
     }
 
     .media-map {
@@ -550,14 +597,52 @@
     .info-row {
       padding: 12px 0;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 170px 1fr;
       gap: 16px;
-      flex-wrap: wrap;
+      align-items: baseline;
+    }
+
+    @media (max-width:760px) {
+      .info-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
     }
 
     .info-row:last-child {
       border-bottom: none;
+    }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width:760px) {
+      .plan-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .plan-heading {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      color: var(--accent);
+    }
+
+    .plan-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .plan-list li {
+      margin-bottom: 8px;
     }
 
     .info-row .label {
@@ -568,7 +653,7 @@
     .info-row .value {
       font-size: 14px;
       font-weight: 600;
-      text-align: right;
+      line-height: 1.5;
     }
 
     /* ---------- Toast ---------- */
@@ -683,28 +768,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="clickable" data-goto="capex-detail">
+            <tr class="clickable" data-goto="capex-detail" data-asset="wikasatrian">
               <td class="name">WIKASATRIAN</td>
               <td class="num">Rp 93.296.272.001</td>
               <td class="num">-Rp 25.006.454.172</td>
               <td class="num">Rp 68.289.817.829</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="wikapratama">
               <td class="name">WIKAPRATAMA</td>
               <td class="num">Rp 13.067.148.614</td>
               <td class="num">-Rp 7.370.410.116</td>
               <td class="num">Rp 5.696.738.498</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="wika-tower-2">
               <td class="name">WIKA TOWER II</td>
               <td class="num">Rp 305.590.508.380</td>
               <td class="num">-Rp 144.102.980.634</td>
               <td class="num">Rp 161.487.527.746</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="wika-tower-1">
               <td class="name">WIKA TOWER I</td>
               <td class="num">Rp 48.908.550.728</td>
               <td class="num">-Rp 40.819.768.637</td>
@@ -718,42 +803,42 @@
               <td class="num">Rp 1.619.902.061</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="pkp-ciracas">
               <td class="name">PKP CIRACAS</td>
               <td class="num">Rp 2.644.609.186</td>
               <td class="num">-Rp 91.808.186</td>
               <td class="num">Rp 2.552.801.000</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="kompleks-industri-wika">
               <td class="name">KOMPLEKS INDUSTRI WIKA</td>
               <td class="num">Rp 23.041.747.407</td>
               <td class="num">-Rp 2.455.272.534</td>
               <td class="num">Rp 20.586.474.873</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="kantor-semarang">
               <td class="name">KANTOR SEMARANG</td>
               <td class="num">Rp 1.799.896.851</td>
               <td class="num">-Rp 203.892.851</td>
               <td class="num">Rp 1.596.004.000</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="kantor-medan">
               <td class="name">KANTOR MEDAN</td>
               <td class="num">Rp 2.182.581.294</td>
               <td class="num">-Rp 1.063.572.294</td>
               <td class="num">Rp 1.119.009.000</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="kantor-mataram">
               <td class="name">KANTOR MATARAM</td>
               <td class="num">Rp 708.896.104</td>
               <td class="num">-Rp 92.895.104</td>
               <td class="num">Rp 616.001.000</td>
               <td class="num">&ndash;</td>
             </tr>
-            <tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="kantor-lampung">
               <td class="name">KANTOR LAMPUNG</td>
               <td class="num">Rp 1.871.000.000</td>
               <td class="num">-Rp 34.154.167</td>
@@ -774,6 +859,27 @@
               <td class="num">Rp 605.746.528</td>
               <td class="num">&ndash;</td>
             </tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="tamansari-papilio">
+              <td class="name">SPACE OFFICE TAMANSARI PAPILIO</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="ruko-sidoarjo">
+              <td class="name">2 RUKO SIDOARJO</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+            </tr>
+            <tr class="clickable" data-goto="capex-detail" data-asset="kantor-makassar">
+              <td class="name">KANTOR MAKASSAR</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+              <td class="num">&ndash;</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -784,67 +890,43 @@
   <section class="page" id="capex-detail" hidden>
     <div class="page-inner">
       <button class="back-link" data-goto="capex">&larr; Kembali ke Daftar Aset CAPEX</button>
-      <h2 class="detail-title">WIKASATRIAN</h2>
-      <p class="detail-sub">Detail Aset CAPEX</p>
+      <h2 class="detail-title" id="cd-title">&ndash;</h2>
+      <p class="detail-sub" id="cd-sub">Detail Aset CAPEX</p>
 
       <div class="detail-grid">
         <div class="media-stack">
           <div class="media-photo">
-            <img src="wikasatrian.jpg" alt="Foto Aset Wikasatrian" loading="lazy">
+            <div class="media-photo-bg" id="cd-photo-bg"></div>
+            <img id="cd-photo" src="" alt="" loading="lazy">
+            <span class="photo-count" id="cd-photo-count" hidden></span>
           </div>
+          <div class="photo-thumbs" id="cd-photo-thumbs" hidden></div>
           <div class="media-map">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.9788!2d106.8568599!3d-6.6460086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c88b3e4211ff%3A0xb5ecc882ec9fd75c!2sWikasatrian!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
-              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade" title="Peta Lokasi Wikasatrian">
+            <iframe id="cd-map-frame" src="" width="100%" height="100%" style="border:0;" allowfullscreen=""
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta Lokasi Aset">
             </iframe>
-            <a class="map-link" href="https://maps.app.goo.gl/ZwYQkTJnmKCVfatr7" target="_blank" rel="noopener">
+            <a class="map-link" id="cd-map-link" href="#" target="_blank" rel="noopener">
               🗺 Buka di Google Maps
             </a>
           </div>
         </div>
         <div class="info-list">
           <h3>Informasi Aset</h3>
-          <div class="info-row">
-            <div class="label">Nomor Inventaris</div>
-            <div class="value">WIKASATRIAN</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Lokasi</div>
-            <div class="value">Jl. Pasir Angin, Cipayung Datar, Kec. Megamendung, Kabupaten Bogor, Jawa Barat 16770
+          <div id="cd-info-rows"></div>
+        </div>
+      </div>
+
+      <div class="overview-grid full" id="cd-plan-wrap" hidden>
+        <div class="module-box" style="cursor:default; height:auto; align-items:stretch; text-align:left; padding:22px;">
+          <div class="plan-grid">
+            <div>
+              <h3 class="plan-heading">Telah Dilakukan</h3>
+              <ul class="plan-list" id="cd-plan-done"></ul>
             </div>
-          </div>
-          <div class="info-row">
-            <div class="label">Titik Koordinat</div>
-            <div class="value mono">-6.645827428740509, 106.85943479573297</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Luas Tanah / Bangunan</div>
-            <div class="value">50.000 m&sup2; / 10.000 m&sup2;</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Nilai Perolehan</div>
-            <div class="value mono">Rp 93.296.272.001</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Akumulasi Penyusutan</div>
-            <div class="value mono">-Rp 25.006.454.172</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Nilai Buku</div>
-            <div class="value mono">Rp 68.289.817.829</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Tahun KJPP Terakhir</div>
-            <div class="value">2024</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Status Pembayaran PBB</div>
-            <div class="value">Lunas s.d. 2026</div>
-          </div>
-          <div class="info-row">
-            <div class="label">Status Sertifikat</div>
-            <div class="value">SHM No. 1234/Wikasatrian &ndash; Aktif</div>
+            <div>
+              <h3 class="plan-heading">Rencana Ke Depan</h3>
+              <ul class="plan-list" id="cd-plan-next"></ul>
+            </div>
           </div>
         </div>
       </div>
@@ -1097,8 +1179,462 @@
       window.scrollTo(0, 0);
     }
 
+    var CAPEX_ASSETS = {
+      'wikasatrian': {
+        title: 'WIKASATRIAN', photo: 'wikasatrian.jpg',
+        mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.9788!2d106.8568599!3d-6.6460086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c88b3e4211ff%3A0xb5ecc882ec9fd75c!2sWikasatrian!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid',
+        mapLink: 'https://maps.app.goo.gl/ZwYQkTJnmKCVfatr7',
+        info: [
+          ['Nomor Inventaris', 'WIKASATRIAN'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jl. Pasir Angin, Cipayung Datar, Kec. Megamendung, Kabupaten Bogor, Jawa Barat 16770'],
+          ['Titik Koordinat', '-6.645827428740509, 106.85943479573297', 'mono'],
+          ['Luas Tanah / Bangunan', '50.000 m² / 10.000 m²'],
+          ['Nilai Perolehan', 'Rp 93.296.272.001', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 25.006.454.172', 'mono'],
+          ['Nilai Buku', 'Rp 68.289.817.829', 'mono'],
+          ['Tahun KJPP Terakhir', '2024'],
+          ['Status Pembayaran PBB', 'Lunas s.d. 2026'],
+          ['Status Sertifikat', 'SHM No. 1234/Wikasatrian – Aktif'],
+          ['IMB', '–'],
+          ['Peruntukan', '–'],
+          ['Pengguna', '–'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '–'],
+          ['Saleable Area', '–'],
+          ['Okupansi', '–'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', '–']
+        ]
+      },
+      'wika-tower-1': {
+        title: 'WIKA TOWER I', photo: 'assets/wika-tower-1.jpg',
+        address: 'Jalan D.I. Panjaitan Kavling 9, Cipinang Cempedak, Jakarta Timur',
+        info: [
+          ['Nomor Inventaris', 'WIKA TOWER I'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jalan D.I. Panjaitan Kavling 9, Cipinang Cempedak, Jakarta Timur'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '3.170 m² / 7.525 m²'],
+          ['Nilai Perolehan', 'Rp 48.908.550.728', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 40.819.768.637', 'mono'],
+          ['Nilai Buku', 'Rp 8.088.782.091', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 1414 A.n PT Wijaya Karya (Persero) Tbk. Masa berakhir sertifikat 25 Juni 2028'],
+          ['IMB', '38/8.1/31/1.785.51/2015'],
+          ['Peruntukan', 'Perkantoran'],
+          ['Pengguna', 'Bank BNI, Bank BSI, Dapen WIKA, Purnawika'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '5.448 m²'],
+          ['Saleable Area', '6.300 m²'],
+          ['Okupansi', '13%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Perbaikan dan beautifikasi fungsional interior Ruang Pemasaran melalui agen properti dan digital marketing', 'Penjajakan kerjasama dengan beberapa potensial tenant', 'Perapihan administrasi tenant eksisting dan pengelola gedung', 'Okupansi tambahan Lantai 2 WG, Lantai 6 Bitumen dan KAP'],
+        next: ['Kajian/HBU peruntukan lain (Klinik/Hotel/Co Working)', 'Melakukan peremajaan aset / perbaikan bangunan kantor existing', 'Mencari potensial tenant untuk sewa atau kerjasama lain', 'Boosting up digital marketing dan direct marketing melalui social media dan link WIKA Group/BUMN']
+      },
+      'wika-tower-2': {
+        title: 'WIKA TOWER II', photo: 'assets/wika-tower-2.jpg',
+        info: [
+          ['Nomor Inventaris', 'WIKA TOWER II'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jalan D.I. Panjaitan Kavling 10, Cipinang Cempedak, Jakarta Timur'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '3.144 m² / 27.751 m²'],
+          ['Nilai Perolehan', 'Rp 305.590.508.380', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 144.102.980.634', 'mono'],
+          ['Nilai Buku', 'Rp 161.487.527.746', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 1553 A.n PT Wijaya Karya (Persero) Tbk. Masa berakhir sertifikat 7 Juli 2054'],
+          ['IMB', '38/8.1/31/1.785.51/2015'],
+          ['Peruntukan', 'Perkantoran dan Komersial'],
+          ['Pengguna', 'Bank Mandiri, FamilyMart, Kopi DBT, Q Corner, AMG, BTS Tower, Vending Machine, Afiliasi Perusahaan, dll'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '338 m²'],
+          ['Saleable Area', '4.832 m²'],
+          ['Okupansi', '93%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Optimalisasi area kerja', 'Pengalihan fungsi fasum menjadi area komersial (Area Ex DBT) menjadi DAWA minuman', 'Pilot Project Wedding Event lantai 17'],
+        next: ['Melakukan peremajaan aset / perbaikan bangunan kantor existing', 'Menambah potential tenant untuk sewa atau kerjasama di Area Vacant', 'Boosting up digital marketing dan direct marketing melalui social media dan link WIKA Group', 'Pemasaran & Kerjasama Wedding Organizer target 1th 2x event']
+      },
+      'kantor-mataram': {
+        title: 'KANTOR MATARAM', photo: 'assets/kantor-mataram.jpg',
+        info: [
+          ['Nomor Inventaris', 'KANTOR MATARAM'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jl. Majapahit No.104, Dasan Agung Baru, Kec. Selaparang, Mataram, Nusa Tenggara Barat'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '2.169 m² / 405 m²'],
+          ['Nilai Perolehan', 'Rp 708.896.104', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 92.895.104', 'mono'],
+          ['Nilai Buku', 'Rp 616.001.000', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 346 & 347 A.n PT Wijaya Karya (Persero) Tbk. Masa berakhir sertifikat 20 Desember 2055'],
+          ['IMB', '–'],
+          ['Peruntukan', 'Perkantoran'],
+          ['Pengguna', 'Kementerian Perhubungan BPTD II NTB'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '–'],
+          ['Saleable Area', '405 m²'],
+          ['Okupansi', '100%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Kerjasama kontrak dengan agen properti', 'Analisa Highest and Best Use untuk opsi optimalisasi asset', 'Aset disewakan dengan Kementerian Perhubungan BPTD II NTB sejak tahun 2024'],
+        next: ['Rencana pengurukan & perkerasan paving di area aset (di bawah elevasi jalan)', 'Membuat ploting kavling untuk booth semi permanen', 'Melakukan pendekatan kepada Univ. Mataram maupun investor lokal untuk potensi pemanfaatan aset melalui beberapa opsi seperti Revenue Sharing, Sewa atau Penghapusbukuan']
+      },
+      'kantor-lampung': {
+        title: 'KANTOR LAMPUNG', photo: 'assets/kantor-lampung.jpg',
+        info: [
+          ['Nomor Inventaris', 'KANTOR LAMPUNG'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jl. Woltermonginsidi No. 222, Desa Sumur Putri, Kec. Teluk Betung Selatan, Kab. Bandar Lampung'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '682 m² / 200 m²'],
+          ['Nilai Perolehan', 'Rp 1.871.000.000', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 34.154.167', 'mono'],
+          ['Nilai Buku', 'Rp 1.836.845.833', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 691 A.n PT Wijaya Karya (Persero) Tbk. Masa berakhir sertifikat 9 Maret 2042'],
+          ['IMB', 'No. 14195/IMB/2011'],
+          ['Peruntukan', 'Perkantoran dan komersial'],
+          ['Pengguna', 'Vacant'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', 'Tanah 682 m² / Bangunan 200 m²'],
+          ['Saleable Area', 'Tanah 682 m² / Bangunan 200 m²'],
+          ['Okupansi', 'N/A'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Kerjasama kontrak dengan agen properti', 'Pemasangan iklan di digital marketplace property (OLX, Rumah123, Lamudi)', 'Penjajakan ke beberapa potensial tenant (Els Coffee, Indomaret, mobil listrik)'],
+        next: ['Rencana pengurukan & perkerasan paving di area aset (di bawah elevasi jalan)', 'Membuat ploting kavling untuk booth semi permanen', 'Kerjasama agen pemasaran dan penawaran tenant F&B']
+      },
+      'kantor-medan': {
+        title: 'KANTOR MEDAN', photo: 'assets/kantor-medan.jpg',
+        info: [
+          ['Nomor Inventaris', 'KANTOR MEDAN'],
+          ['Nama Aset', 'Gedung Medan'],
+          ['Lokasi', 'Jl. Gunung Krakatau No.15, Pulau Brayan Darat II, Medan Timur, Medan'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '2.484 m² / 1.337 m²'],
+          ['Nilai Perolehan', 'Rp 2.182.581.294', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 1.063.572.294', 'mono'],
+          ['Nilai Buku', 'Rp 1.119.009.000', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 14 A.n PT Wijaya Karya (Persero) Tbk. Masa berakhir sertifikat 12 Agustus 2039'],
+          ['IMB', 'No. 0885/644.4/MT/949/1995'],
+          ['Peruntukan', 'Perkantoran'],
+          ['Pengguna', 'Internal: PT Wika Beton. Eksternal: PT Alamul Logistics, PT SMFL Leasing Indonesia, PT Sika Indonesia, PT Arta Buana Inspektindo, PT Human Resources Nusantara'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '114 m²'],
+          ['Saleable Area', '1.169 m²'],
+          ['Okupansi', '90%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Kerjasama dengan property management untuk pengelolaan asset', 'Pemasaran melalui direct marketing maupun social media'],
+        next: ['Melakukan peremajaan aset / perbaikan bangunan kantor existing', 'Mencari potential tenant untuk sewa atau kerjasama lain', 'Aktifasi parkir berbayar kerjasama dengan operator', 'Optimalisasi lahan parkir untuk court olahraga kerjasama operator', 'Boosting up digital marketing dan direct marketing melalui social media dan link WIKA Group']
+      },
+      'pkp-ciracas': {
+        title: 'PKP CIRACAS', photos: ['assets/pkp-ciracas-1.jpg', 'assets/pkp-ciracas-2.jpg', 'assets/pkp-ciracas-3.jpg', 'assets/pkp-ciracas-4.jpg'],
+        info: [
+          ['Nomor Inventaris', 'PKP CIRACAS'],
+          ['Nama Aset', 'Gedung Arsip PKP Cibubur'],
+          ['Lokasi', 'Jl. Raya PKP No 38-39, Kelurahan Kelapa Dua Wetan, Kecamatan Ciracas, Kota Jakarta Timur'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '5.710 m² / 1.116 m²'],
+          ['Nilai Perolehan', 'Rp 2.644.609.186', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 91.808.186', 'mono'],
+          ['Nilai Buku', 'Rp 2.552.801.000', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB No 00410 & SHGB No 00456 A.n PT Wijaya Karya (Persero) Tbk.'],
+          ['IMB', '–'],
+          ['Peruntukan', 'Komersial'],
+          ['Pengguna', 'Vacant'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '5.710 m²'],
+          ['Saleable Area', '5.710 m²'],
+          ['Okupansi', 'N/A'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring & Busdev AMD']
+        ],
+        done: ['Perizinan penghapusbukuan bangunan (masuk dalam RKAP 2026)', 'Analisa Highest and Best Use untuk opsi optimalisasi asset'],
+        next: ['Penawaran kerjasama dengan investor untuk pengembangan asset', 'Opsi disewakan sementara untuk fungsi fleksibel (parkir, gudang, food court container, event space)']
+      },
+      'kompleks-industri-wika': {
+        title: 'KOMPLEKS INDUSTRI WIKA', photos: ['assets/kompleks-industri-wika-1.jpg', 'assets/kompleks-industri-wika-2.jpg', 'assets/kompleks-industri-wika-3.jpg'],
+        info: [
+          ['Nomor Inventaris', 'KOMPLEKS INDUSTRI WIKA'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jalan Raya Narogong, Kembang Kuning, Kab. Bogor'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '218.970 m² / 34.297 m²'],
+          ['Nilai Perolehan', 'Rp 23.041.747.407', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 2.455.272.534', 'mono'],
+          ['Nilai Buku', 'Rp 20.586.474.873', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 17 (berakhir 9 Mei 2041) & SHGB Nomor 4 (berakhir 17 Agustus 2033) A.n PT Wijaya Karya (Persero) Tbk.'],
+          ['IMB', '593/SK.87.BKPMD/1987'],
+          ['Peruntukan', 'Industri dan Pergudangan'],
+          ['Pengguna', 'PT WIKA Industri Konstruksi, PT WIKA Beton, PT WIKA Industri Energy, PT Gesits Motor Nusantara'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '37.281 m² (Kav 7A, Kav 5B/C, Kav 4A/B, 3A)'],
+          ['Saleable Area', '92.074 m²'],
+          ['Okupansi', '60%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Melakukan peremajaan asset / perbaikan asset', 'Kerjasama dengan agen properti', 'Membuka opsi penyewaan ke potential tenant eksternal'],
+        next: ['Boosting up digital marketing dan direct marketing', 'Pemisahan metering listrik', 'Mapping saleable area ke spesifik potential tenant', 'Kerjasama agen pemasaran']
+      },
+      'kantor-semarang': {
+        title: 'KANTOR SEMARANG', photos: ['assets/kantor-semarang-1.jpg', 'assets/kantor-semarang-2.jpg', 'assets/kantor-semarang-3.jpg', 'assets/kantor-semarang-4.jpg', 'assets/kantor-semarang-5.jpg'],
+        info: [
+          ['Nomor Inventaris', 'KANTOR SEMARANG'],
+          ['Nama Aset', 'Gedung WIKA Semarang'],
+          ['Lokasi', 'Jl. Teuku Umar No.21, Karangrejo, Kec. Gajahmungkur, Kota Semarang, Jawa Tengah 50234'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '1.773 m² / 670 m²'],
+          ['Nilai Perolehan', 'Rp 1.799.896.851', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 203.892.851', 'mono'],
+          ['Nilai Buku', 'Rp 1.596.004.000', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 250 A.n PT Wijaya Karya (Persero) Tbk. Masa berakhir sertifikat 14 Agustus 2031'],
+          ['IMB', '–'],
+          ['Peruntukan', 'Perkantoran atau komersial'],
+          ['Pengguna', 'Proyek WIKA-BNL KSO'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '–'],
+          ['Saleable Area', '670 m²'],
+          ['Okupansi', '100%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Melakukan peremajaan asset / perbaikan asset', 'Analisa Highest and Best Use untuk opsi optimalisasi asset apabila asset idle'],
+        next: ['Maintain tenant eksisting', 'Monitoring kondisi asset berkala', 'Penjajakan ke potential partner lain untuk antisipasi tenant eksisting tidak perpanjang kontrak']
+      },
+      'wikapratama': {
+        title: 'WIKAPRATAMA', photo: 'assets/wikapratama.jpg',
+        info: [
+          ['Nomor Inventaris', 'WIKAPRATAMA'],
+          ['Nama Aset', 'Tanah dan Bangunan Gedung WPLC'],
+          ['Lokasi', 'Jalan Kelapa Dua Wetan nomor 6, Cibubur, Jakarta Timur'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '5.860 m² / 772 m²'],
+          ['Nilai Perolehan', 'Rp 13.067.148.614', 'mono'],
+          ['Akumulasi Penyusutan', '-Rp 7.370.410.116', 'mono'],
+          ['Nilai Buku', 'Rp 5.696.738.498', 'mono'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHGB Nomor 436 (berakhir 30 Oktober 2025) & SHGB Nomor 444 (berakhir 24 Juni 2026) A.n PT Wijaya Karya (Persero) Tbk.'],
+          ['IMB', 'No. 06627/IMB/1987'],
+          ['Peruntukan', 'Pusat Pelatihan Akademis (Hard Competency), Pusat Sertifikasi Profesi, Pusat Laboratorium Tanah & Beton'],
+          ['Pengguna', 'Internal dan Eksternal'],
+          ['Skema Kerjasama', 'Pengelolaan gedung oleh WIKA Realty'],
+          ['Vacant Area', '–'],
+          ['Saleable Area', '–'],
+          ['Okupansi', '63%'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh AMD WPLC & LAB WIKA']
+        ],
+        done: ['Pemindahan kontainer WPLC', 'Clearing area idle WPLC-LAB', 'Pembuatan HBU dan pencarian pasar tenant Family Mart'],
+        next: ['Utilisasi lahan idle WPLC seluas 648 m²', 'Peningkatan utilisasi aset Learning Center melalui skema sewa dengan mitra strategis', 'Kajian pasar dan HBU optimalisasi aset']
+      },
+      'tamansari-papilio': {
+        title: 'SPACE OFFICE TAMANSARI PAPILIO', photos: ['assets/tamansari-papilio-1.jpg', 'assets/tamansari-papilio-2.jpg', 'assets/tamansari-papilio-3.jpg', 'assets/tamansari-papilio-4.jpg'],
+        info: [
+          ['Nomor Inventaris', 'SPACE OFFICE TAMANSARI PAPILIO'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Jl. A. Yani No. 176-178 Gayungan, Surabaya'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '620,81 m² / –'],
+          ['Nilai Perolehan', '–'],
+          ['Akumulasi Penyusutan', '–'],
+          ['Nilai Buku', '–'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'SHMSRS Nomor 00015 A.n PT Wijaya Karya (Persero) Tbk.'],
+          ['IMB', '188/1041-91/436.6.2/2014'],
+          ['Peruntukan', 'Perkantoran atau komersial'],
+          ['Pengguna', 'N/A'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '561 m²'],
+          ['Saleable Area', '561 m²'],
+          ['Okupansi', 'N/A'],
+          ['Skema Optimalisasi', '–'],
+          ['Status & Rencana Aset', '–'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring AMD']
+        ],
+        done: ['Analisa Highest and Best Use untuk opsi optimalisasi asset', 'Penjajakan kerjasama dengan agen properti TifaHub', 'Penjajakan dengan potential tenant'],
+        next: ['Kontrak kerjasama agen Co Working', 'Boosting up digital marketing dan direct marketing', 'Roadshow ke potential tenant spesifik', 'Opsi penghapusbukuan ke potential buyer']
+      },
+      'ruko-sidoarjo': {
+        title: '2 RUKO SIDOARJO', photos: ['assets/ruko-sidoarjo-1.jpg', 'assets/ruko-sidoarjo-2.jpg'],
+        info: [
+          ['Nomor Inventaris', '2 RUKO SIDOARJO'],
+          ['Nama Aset', '–'],
+          ['Lokasi', 'Perumahan Graha Kota, Ruko Blok CC Desa Suko, Kecamatan Sidoarjo'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '1.157 m² / 528,4 m²'],
+          ['Nilai Perolehan', '–'],
+          ['Akumulasi Penyusutan', '–'],
+          ['Nilai Buku', '–'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'HGB No. 39 & 40 A.n PT WIKA (Persero) Tbk.'],
+          ['IMB', '–'],
+          ['Peruntukan', 'Perkantoran'],
+          ['Pengguna', '–'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '–'],
+          ['Saleable Area', 'Tanah 68 m² / Bangunan 90 m²'],
+          ['Okupansi', 'Kosong'],
+          ['Skema Optimalisasi', 'Jual (Divestasi)'],
+          ['Status & Rencana Aset', 'Sedang dipakai Proyek Rehab dan Peningkatan Irigasi Sulsel Inpres 3 Paket 3'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring & Sales AMD']
+        ],
+        done: ['Pemasangan iklan di digital marketplace property (OLX, Rumah123, Lamudi)', 'Perapihan stand liar di depan ruko', 'Penjajakan tenant Bimbel'],
+        next: ['Kajian pasar dan HBU optimalisasi aset', 'Penjajakan ke tenant laundry dan jasa pengiriman logistik', 'Melakukan refreshment konten sewa/beli di digital market', 'Menawarkan set-off hutang vendor']
+      },
+      'kantor-makassar': {
+        title: 'KANTOR MAKASSAR', photo: 'assets/kantor-makassar.jpg',
+        info: [
+          ['Nomor Inventaris', 'KANTOR MAKASSAR'],
+          ['Nama Aset', 'Tanah dan Bangunan Kantor Makassar'],
+          ['Lokasi', 'Jl. Pajonga Dg. Ngalle No.12, Kel. Mario, Kec. Mamajang, Kota Makassar'],
+          ['Titik Koordinat', '–'],
+          ['Luas Tanah / Bangunan', '1.157 m² / 528,4 m² *'],
+          ['Nilai Perolehan', '–'],
+          ['Akumulasi Penyusutan', '–'],
+          ['Nilai Buku', '–'],
+          ['Tahun KJPP Terakhir', '–'],
+          ['Status Pembayaran PBB', '–'],
+          ['Status Sertifikat', 'HGB No. 20021 A.n PT WIKA (Persero) Tbk.'],
+          ['IMB', '38/8.1/31/1.785.51/2015'],
+          ['Peruntukan', 'Perkantoran'],
+          ['Pengguna', '–'],
+          ['Skema Kerjasama', '–'],
+          ['Vacant Area', '–'],
+          ['Saleable Area', 'Tanah 1.157 m² / Bangunan 528,4 m² *'],
+          ['Okupansi', 'Kosong'],
+          ['Skema Optimalisasi', 'Sewa & Jual (Divestasi)'],
+          ['Status & Rencana Aset', 'Sedang dipakai Proyek Rehab dan Peningkatan Irigasi Sulsel Inpres 3 Paket 3'],
+          ['Status Aset', 'Dikelola dan dioptimalisasi oleh Recurring & Sales AMD']
+        ],
+        note: '* Angka luasan pada sumber (PPTX) sama persis dengan data Ruko Sidoarjo — kemungkinan salah salin di dokumen asli, perlu diverifikasi ke summary aset.',
+        done: ['Kerjasama kontrak dengan agen properti', 'Pemasangan iklan di digital marketplace property (OLX, Rumah123, Lamudi)', 'Penawaran kerjasama ke investor', 'Kerjasama penggunaan Proyek INBD Sulawesi'],
+        next: ['Kajian pasar dan HBU optimalisasi aset', 'Maintenance dan operasional bangunan', 'Mencari investor untuk kerjasama sewa/beli', 'Set-off hutang vendor']
+      }
+    };
+
+    function renderCapexPhotos(photos, title) {
+      var photoEl = document.getElementById('cd-photo');
+      var bgEl = document.getElementById('cd-photo-bg');
+      var countEl = document.getElementById('cd-photo-count');
+      var thumbsWrap = document.getElementById('cd-photo-thumbs');
+      var multi = photos.length > 1;
+
+      function show(i) {
+        photoEl.src = photos[i];
+        photoEl.alt = 'Foto Aset ' + title + (multi ? ' (' + (i + 1) + ')' : '');
+        bgEl.style.backgroundImage = 'url("' + photos[i] + '")';
+        countEl.textContent = (i + 1) + ' / ' + photos.length;
+        Array.prototype.forEach.call(thumbsWrap.children, function (btn, j) {
+          btn.classList.toggle('active', j === i);
+        });
+      }
+
+      thumbsWrap.innerHTML = '';
+      thumbsWrap.hidden = !multi;
+      countEl.hidden = !multi;
+      if (multi) {
+        photos.forEach(function (src, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('aria-label', 'Lihat foto ' + (i + 1));
+          btn.innerHTML = '<img src="' + src + '" alt="" loading="lazy">';
+          btn.addEventListener('click', function () { show(i); });
+          thumbsWrap.appendChild(btn);
+        });
+      }
+      show(0);
+    }
+
+    function renderCapexDetail(key) {
+      var data = CAPEX_ASSETS[key];
+      if (!data) return;
+      document.getElementById('cd-title').textContent = data.title;
+      document.getElementById('cd-sub').textContent = 'Detail Aset CAPEX';
+      renderCapexPhotos(data.photos || [data.photo], data.title);
+
+      var mapFrame = document.getElementById('cd-map-frame');
+      var mapLink = document.getElementById('cd-map-link');
+      var address = data.address || (data.info.find(function (r) { return r[0] === 'Lokasi'; }) || [])[1];
+      if (data.mapEmbed) {
+        mapFrame.src = data.mapEmbed;
+        mapLink.href = data.mapLink;
+      } else if (address) {
+        mapFrame.src = 'https://www.google.com/maps?q=' + encodeURIComponent(address) + '&output=embed';
+        mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address);
+      }
+
+      var rowsWrap = document.getElementById('cd-info-rows');
+      rowsWrap.innerHTML = '';
+      data.info.forEach(function (row) {
+        var div = document.createElement('div');
+        div.className = 'info-row';
+        var cls = row[2] ? ' mono' : '';
+        div.innerHTML = '<div class="label">' + row[0] + '</div><div class="value' + cls + '">' + row[1] + '</div>';
+        rowsWrap.appendChild(div);
+      });
+      if (data.note) {
+        var noteDiv = document.createElement('div');
+        noteDiv.className = 'info-row';
+        noteDiv.innerHTML = '<div class="value" style="text-align:left; font-size:11.5px; color:var(--text-muted); font-weight:500;">' + data.note + '</div>';
+        rowsWrap.appendChild(noteDiv);
+      }
+
+      var planWrap = document.getElementById('cd-plan-wrap');
+      var doneList = document.getElementById('cd-plan-done');
+      var nextList = document.getElementById('cd-plan-next');
+      doneList.innerHTML = '';
+      nextList.innerHTML = '';
+      if (data.done && data.next) {
+        data.done.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; doneList.appendChild(li); });
+        data.next.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; nextList.appendChild(li); });
+        planWrap.hidden = false;
+      } else {
+        planWrap.hidden = true;
+      }
+    }
+
     document.querySelectorAll('[data-goto]').forEach(function (el) {
-      el.addEventListener('click', function () { showPage(el.getAttribute('data-goto')); });
+      el.addEventListener('click', function () {
+        var assetKey = el.getAttribute('data-asset');
+        if (assetKey) renderCapexDetail(assetKey);
+        showPage(el.getAttribute('data-goto'));
+      });
     });
 
     showPage('overview');
