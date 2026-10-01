@@ -656,6 +656,305 @@
       line-height: 1.5;
     }
 
+    /* ---------- Piutang: ARMS Matrix ---------- */
+    .arms-panel {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 20px 22px 22px;
+      margin-bottom: 18px;
+    }
+
+    .arms-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .arms-panel-head .name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .arms-panel-head .sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .btn.ghost {
+      background: var(--surface);
+      color: var(--accent);
+    }
+
+    .btn.ghost:hover {
+      background: var(--accent-soft);
+    }
+
+    .arms-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 12px 0 16px;
+    }
+
+    .arms-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .arms-legend i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .arms-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .arms-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      background: var(--surface);
+      min-width: 0;
+    }
+
+    .arms-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .arms-card .arms-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin: 2px 0 10px;
+    }
+
+    .arms-filters {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+      max-width: 720px;
+    }
+
+    .arms-filters label {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      min-width: 0;
+    }
+
+    .arms-filters select {
+      font: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--text);
+      padding: 5px 6px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      width: 100%;
+      min-width: 0;
+    }
+
+    .arms-matrix {
+      display: grid;
+      grid-template-columns: 96px repeat(5, minmax(0, 1fr)) 150px;
+      gap: 3px;
+      font-size: 12px;
+    }
+
+    .arms-age,
+    .arms-kol {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .arms-age {
+      justify-content: flex-end;
+      text-align: right;
+      padding-right: 6px;
+    }
+
+    .arms-kol {
+      padding-left: 6px;
+    }
+
+    .arms-cell {
+      min-height: 64px;
+      border-radius: 4px;
+      padding: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 3px;
+    }
+
+    .arms-xlabel {
+      text-align: center;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding-top: 4px;
+      line-height: 1.25;
+    }
+
+    .arms-xtitle {
+      grid-column: 2 / 7;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text);
+      padding-top: 2px;
+    }
+
+    .arms-bubble {
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .9);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .35);
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+      flex: 0 0 auto;
+      transition: transform .12s;
+    }
+
+    @media (max-width:480px) {
+      .arms-panel {
+        padding: 16px 12px;
+      }
+
+      .arms-card {
+        padding: 10px;
+      }
+
+      .arms-matrix {
+        grid-template-columns: 48px repeat(5, minmax(0, 1fr)) 58px;
+        font-size: 9.5px;
+      }
+
+      .arms-cell {
+        padding: 2px;
+        gap: 2px;
+      }
+
+      .arms-bubble {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+        border-width: 1.5px;
+      }
+    }
+
+    .arms-bubble:hover,
+    .arms-bubble:focus-visible {
+      transform: scale(1.18);
+      outline: 2px solid var(--text);
+      outline-offset: 1px;
+    }
+
+    .arms-empty {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    /* ---------- Piutang: detail ---------- */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .meta-grid .kpi-card .value {
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    .check-list {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .check-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 0;
+    }
+
+    .check-list .yes {
+      color: var(--ok);
+    }
+
+    .check-list .no {
+      color: var(--bad);
+    }
+
+    tbody td.wrap {
+      white-space: normal;
+      min-width: 260px;
+      line-height: 1.5;
+    }
+
+    thead th.age {
+      text-align: right;
+      color: #1c2430;
+    }
+
+    thead th.age.dark {
+      color: #fff;
+    }
+
+    th.r,
+    td.r {
+      text-align: right;
+    }
+
+    td.c {
+      text-align: center;
+    }
+
+    tr.total-row td {
+      font-weight: 700;
+      background: var(--surface-alt);
+      color: var(--text);
+    }
+
     /* ---------- Toast ---------- */
     #toast {
       position: fixed;
@@ -733,11 +1032,16 @@
           <div class="hint">[ Grafik menyusul ]</div>
         </div>
       </div>
-      <div class="overview-grid full">
-        <div class="module-box tall" data-goto="piutang">
-          <div class="name">PIUTANG BERMASALAH</div>
-          <div class="hint">[ Grafik menyusul ]</div>
+      <div class="arms-panel">
+        <div class="arms-panel-head">
+          <div>
+            <div class="name">PIUTANG BERMASALAH</div>
+            <div class="sub">Account Receivable Management System (ARMS) Matrix &middot; klik bubble untuk detail proyek</div>
+          </div>
+          <button class="btn ghost" data-goto="piutang">Lihat Daftar Proyek &rarr;</button>
         </div>
+        <div class="arms-legend" id="arms-legend"></div>
+        <div class="arms-grid" id="arms-grid"></div>
       </div>
     </div>
   </section>
@@ -1058,104 +1362,86 @@
     <div class="page-inner">
       <div class="page-header">
         <h1>Piutang Bermasalah</h1>
-        <p>Monitoring dan tindak lanjut piutang usaha bermasalah</p>
+        <p>Monitoring piutang usaha, retensi, tagihan bruto, dan PDPK per proyek</p>
       </div>
 
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="label">Total Piutang Bermasalah</div>
-          <div class="value">Rp 3.2 M</div>
-          <div class="caption">18% dari total piutang</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Piutang &gt; 90 Hari</div>
-          <div class="value">Rp 1.1 M</div>
-          <div class="caption">9 debitur</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Jumlah Debitur Bermasalah</div>
-          <div class="value">27 Debitur</div>
-          <div class="caption">+3 bulan ini</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Tertagih (Bulan Ini)</div>
-          <div class="value">Rp 420 Jt</div>
-          <div class="caption">13 debitur</div>
-        </div>
-      </div>
+      <div class="kpi-grid" id="pt-kpi"></div>
 
-      <div class="chart-grid">
-        <div class="chart-card">
-          <h3>Aging Piutang (Bucket)</h3>
-          <div class="chart-dummy">[ Grafik menyusul ]</div>
-        </div>
-        <div class="chart-card">
-          <h3>Trend Piutang Bermasalah per Bulan</h3>
-          <div class="chart-dummy">[ Grafik menyusul ]</div>
-        </div>
-      </div>
-
-      <div class="section-title">Daftar Piutang Bermasalah</div>
+      <div class="section-title">Daftar Proyek</div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Debitur</th>
-              <th>Nilai Piutang</th>
-              <th>Umur (Hari)</th>
-              <th>Kategori Aging</th>
-              <th>Status Tindak Lanjut</th>
-              <th>PIC</th>
+              <th>Kode Profit Center</th>
+              <th>Nama Proyek</th>
+              <th>Unit Kerja</th>
+              <th>Status</th>
+              <th class="r">Total Piutang &amp; PDPK</th>
+              <th>Kolektabilitas Terburuk</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="pt-list"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PIUTANG DETAIL ===================== -->
+  <section class="page" id="piutang-detail" hidden>
+    <div class="page-inner">
+      <button class="back-link" id="pd-back">&larr; Kembali</button>
+      <h2 class="detail-title" id="pd-title">&ndash;</h2>
+      <p class="detail-sub" id="pd-sub">&ndash;</p>
+
+      <div class="meta-grid" id="pd-meta"></div>
+
+      <div class="section-title">Project Summary</div>
+      <div class="detail-grid">
+        <div class="info-list">
+          <div id="pd-summary"></div>
+        </div>
+        <div>
+          <div class="table-wrap" style="margin-bottom:0;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tindak Lanjut Penyelesaian</th>
+                  <th>Target</th>
+                  <th>PIC</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="pd-tl"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Akun PDPK &amp; Piutang</div>
+      <div class="table-wrap">
+        <table>
+          <thead id="pd-akun-head"></thead>
+          <tbody id="pd-akun"></tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Claim Summary</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
             <tr>
-              <td>1</td>
-              <td class="name">PT Sinar Abadi</td>
-              <td class="num">Rp 450.000.000</td>
-              <td class="num">120</td>
-              <td><span class="pill bad">&gt;90 Hari</span></td>
-              <td>Somasi ke-2</td>
-              <td>Budi S.</td>
+              <th>No</th>
+              <th>Uraian</th>
+              <th>No Dokumen</th>
+              <th>Bagian dari PDPK</th>
+              <th class="r">Submission</th>
+              <th class="r">Negotiation</th>
+              <th class="r">Approved</th>
+              <th class="r">Nilai Klaim atas PDPK</th>
             </tr>
-            <tr>
-              <td>2</td>
-              <td class="name">CV Makmur Jaya</td>
-              <td class="num">Rp 310.000.000</td>
-              <td class="num">75</td>
-              <td><span class="pill warn">61-90 Hari</span></td>
-              <td>Negosiasi</td>
-              <td>Siti A.</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td class="name">PT Cahaya Mas</td>
-              <td class="num">Rp 275.000.000</td>
-              <td class="num">45</td>
-              <td><span class="pill warn">31-60 Hari</span></td>
-              <td>Reminder</td>
-              <td>Andi P.</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td class="name">Koperasi Sejahtera</td>
-              <td class="num">Rp 190.000.000</td>
-              <td class="num">95</td>
-              <td><span class="pill bad">&gt;90 Hari</span></td>
-              <td>Somasi ke-1</td>
-              <td>Budi S.</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td class="name">PT Delta Utama</td>
-              <td class="num">Rp 150.000.000</td>
-              <td class="num">20</td>
-              <td><span class="pill ok">0-30 Hari</span></td>
-              <td>Reminder</td>
-              <td>Rina W.</td>
-            </tr>
-          </tbody>
+          </thead>
+          <tbody id="pd-klaim"></tbody>
         </table>
       </div>
     </div>
@@ -1164,7 +1450,7 @@
   <div id="toast"></div>
 
   <script>
-    var tabMap = { overview: 'Overview', capex: 'CAPEX', 'capex-detail': 'CAPEX', extracomp: 'Extracomp', iswara: 'Iswara', piutang: 'Piutang Bermasalah' };
+    var tabMap = { overview: 'Overview', capex: 'CAPEX', 'capex-detail': 'CAPEX', extracomp: 'Extracomp', iswara: 'Iswara', piutang: 'Piutang Bermasalah', 'piutang-detail': 'Piutang Bermasalah' };
 
     function showPage(id) {
       document.querySelectorAll('.page').forEach(function (p) { p.hidden = (p.id !== id); p.classList.remove('enter'); });
@@ -1628,6 +1914,416 @@
         planWrap.hidden = true;
       }
     }
+
+    /* ===================== PIUTANG BERMASALAH ===================== */
+    // Sumber: Sistem Monitoring Piutang-PDPK-Rev4.xlsx (sheet Output ARMS Map-Per Project / -PHO).
+    // akun.*.hari = umur (hari), akun.*.nilai = Rupiah penuh. Akun tanpa nilai cukup dihapus dari objek akun.
+    var PIUTANG_PROJECTS = {
+      'hsr': {
+        no: 1, kode: 'AB0041601J', nama: 'Jakarta-Bandung High Speed Railway',
+        unit: 'Infra 1', status: 'On Going', caraBayar: 'CPF (Turn Key)',
+        header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', true], ['MOF', true]], tahun: 2019, bulan: 3, minggu: 3 },
+        summary: [
+          ['Kode Profit Center', 'AB0041601J'],
+          ['Nama Proyek', 'Jakarta-Bandung High Speed Railway'],
+          ['Pengguna Jasa', 'PT KCIC'],
+          ['Penyedia Jasa', 'Konsorsium HSRCC'],
+          ['Jenis Kontrak', 'CPF (Turn Key)'],
+          ['Kategori', 'Swasta'],
+          ['Jenis JO', 'Alokasi'],
+          ['Porsi WIKA', '25 % (belum final)'],
+          ['Nilai Proyek', 'USD 4.701.182.062,18'],
+          ['Progres Proyek', '80%'],
+          ['BAST-1/PHO', '30-Sep-23'],
+          ['BAST-2/FHO', '–']
+        ],
+        tindakLanjut: [
+          { uraian: 'Penyiapan dokumen dan konsultan hukum untuk pengajuan ke SIAC' },
+          { uraian: 'Telah disetujui oleh Asuransi terkait TPL, namun belum ada pembayaran dari KCIC ke Kontraktor' },
+          { uraian: 'Dokumen klaim lengkap CAR Banjir 5x dan TPL 2x, namun belum ada penawaran ganti rugi dari Asuransi' },
+          { uraian: 'Dokumen CAR TPL PLN sedang disusun oleh Tim HSRCC' },
+          { uraian: 'Notifikasi klaim CAR Banjir 2x dan Kebakaran sudah disampaikan, namun belum dilakukan survey' }
+        ],
+        akun: {
+          usaha: { hari: 80, nilai: 300000000000 },
+          retensi: { hari: 45, nilai: 150000000000 },
+          tagbrut: { hari: 70, nilai: 250000000000 },
+          pdpk: { hari: 20, nilai: 500000000000 }
+        },
+        ckpn: 0,
+        klaim: [
+          { uraian: 'VO', noDok: 'Klaim Surat No. TP.02.09/U.DIP.CHF-TLS5/1691/XII/2021, Tanggal 23-Des-21', bagianPdpk: true, submission: 300000000000, negotiation: 300000000000, approved: 0, nilaiAtasPdpk: 0 },
+          { uraian: 'Claim', noDok: 'Klaim Surat No. TP.02.09/U.DIP.CHF-TLS5/1767/VI/2022, Tanggal 30-Jun-22', bagianPdpk: false, submission: 5100000000000, negotiation: 5100000000000, approved: 0, nilaiAtasPdpk: 0 },
+          { uraian: 'Anti Claim', noDok: '', bagianPdpk: null, submission: 0, negotiation: 0, approved: 0, nilaiAtasPdpk: 0 },
+          { uraian: 'Insurance', noDok: '', bagianPdpk: null, submission: 0, negotiation: 0, approved: 0, nilaiAtasPdpk: 0 }
+        ]
+      },
+      'tol-semarang-demak': {
+        no: 2, kode: 'AC0031912N', nama: 'Jalan Tol Semarang - Demak 27 Km (Paket 2)',
+        unit: 'Infra 1', status: 'PHO', caraBayar: 'Milestone',
+        header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', true], ['MOF', true]], tahun: 2024, bulan: 5, minggu: 2 },
+        summary: [
+          ['Kode Profit Center', 'AC0031912N'],
+          ['Nama Proyek', 'Jalan Tol Semarang - Demak 27 Km (Paket 2)'],
+          ['Pengguna Jasa', 'PT PP Semarang Demak'],
+          ['Penyedia Jasa', 'PT Wijaya Karya (Persero) Tbk'],
+          ['Jenis Kontrak', 'Milestone'],
+          ['Kategori', 'Swasta'],
+          ['Jenis JO', 'JO Non Administrative'],
+          ['Porsi WIKA', '25%'],
+          ['Nilai Proyek', 'USD 1.109.221.889.518,-'],
+          ['Progres Proyek', '100%'],
+          ['BAST-1/PHO', '28-Nov-22'],
+          ['BAST-2/FHO', '–']
+        ],
+        tindakLanjut: [
+          { uraian: 'Proses pembahasan QA atas laporan audit BPKP Perwakilan Jateng -- koreksi sementara sebesar 38 M (porsi WIKA) terkait durasi IDC' },
+          { uraian: 'Menyampaian tanggapan keberatan bersama dgn PP & PPSD untuk dibahas kembali antara BPKP Perwakilan & QA' }
+        ],
+        akun: {
+          usaha: { hari: 80, nilai: 300000000000 },
+          retensi: { hari: 45, nilai: 150000000000 },
+          tagbrut: { hari: 70, nilai: 250000000000 },
+          pdpk: { hari: 20, nilai: 500000000000 }
+        },
+        ckpn: 0,
+        klaim: [
+          { uraian: 'VO', noDok: 'Klaim Surat No. TP.02.09/U.DIP.CHF-TLS5/1691/XII/2021, Tanggal 23-Des-21', bagianPdpk: true, submission: 300000000000, negotiation: 300000000000, approved: 0, nilaiAtasPdpk: 0 },
+          { uraian: 'Claim', noDok: 'Klaim Surat No. TP.02.09/U.DIP.CHF-TLS5/1767/VI/2022, Tanggal 30-Jun-22', bagianPdpk: false, submission: 5100000000000, negotiation: 5100000000000, approved: 0, nilaiAtasPdpk: 0 },
+          { uraian: 'Anti Claim', noDok: '', bagianPdpk: null, submission: 0, negotiation: 0, approved: 0, nilaiAtasPdpk: 0 },
+          { uraian: 'Insurance', noDok: '', bagianPdpk: null, submission: 0, negotiation: 0, approved: 0, nilaiAtasPdpk: 0 }
+        ]
+      },
+      // DUMMY — proyek contoh untuk mengisi matrix & mencoba filter. Ganti dengan data asli.
+      'proyek-c': {
+        no: 3, kode: 'DUMMY-03', nama: 'Proyek C (contoh)', unit: 'Infra 2', status: 'PHO', caraBayar: 'Monthly',
+        header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', true], ['MOF', false]], tahun: 2026, bulan: 9, minggu: 4 },
+        summary: [['Kode Profit Center', 'DUMMY-03'], ['Nama Proyek', 'Proyek C (contoh)']],
+        tindakLanjut: [{ uraian: 'Data contoh — belum ada tindak lanjut' }],
+        akun: { usaha: { hari: 50, nilai: 200000000000 }, pdpk: { hari: 100, nilai: 700000000000 } },
+        ckpn: 0, klaim: []
+      },
+      // DUMMY
+      'proyek-d': {
+        no: 4, kode: 'DUMMY-04', nama: 'Proyek D (contoh)', unit: 'Building', status: 'PHO', caraBayar: 'Milestone',
+        header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', false], ['MOF', false]], tahun: 2026, bulan: 9, minggu: 4 },
+        summary: [['Kode Profit Center', 'DUMMY-04'], ['Nama Proyek', 'Proyek D (contoh)']],
+        tindakLanjut: [{ uraian: 'Data contoh — belum ada tindak lanjut' }],
+        akun: { retensi: { hari: 65, nilai: 120000000000 }, pdpk: { hari: 110, nilai: 850000000000 } },
+        ckpn: 0, klaim: []
+      },
+      // DUMMY
+      'proyek-e': {
+        no: 5, kode: 'DUMMY-05', nama: 'Proyek E (contoh)', unit: 'EPCC', status: 'PHO', caraBayar: 'CPF (Turn Key)',
+        header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', true], ['MOF', true]], tahun: 2026, bulan: 9, minggu: 4 },
+        summary: [['Kode Profit Center', 'DUMMY-05'], ['Nama Proyek', 'Proyek E (contoh)']],
+        tindakLanjut: [{ uraian: 'Data contoh — belum ada tindak lanjut' }],
+        akun: { tagbrut: { hari: 95, nilai: 1200000000000 }, pdpk: { hari: 60, nilai: 650000000000 } },
+        ckpn: 0, klaim: []
+      },
+      // DUMMY
+      'proyek-f': {
+        no: 6, kode: 'DUMMY-06', nama: 'Proyek F (contoh)', unit: 'Infra 2', status: 'On Going', caraBayar: 'Monthly',
+        header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', true], ['MOF', true]], tahun: 2026, bulan: 9, minggu: 4 },
+        summary: [['Kode Profit Center', 'DUMMY-06'], ['Nama Proyek', 'Proyek F (contoh)']],
+        tindakLanjut: [{ uraian: 'Data contoh — belum ada tindak lanjut' }],
+        akun: { usaha: { hari: 35, nilai: 400000000000 }, pdpk: { hari: 85, nilai: 900000000000 } },
+        ckpn: 0, klaim: []
+      }
+    };
+
+    var AKUN_META = {
+      usaha: { label: 'Piutang Usaha', color: '#ff6a00' },
+      retensi: { label: 'Piutang Retensi', color: '#7a3b10' },
+      tagbrut: { label: 'Tagihan Bruto', color: '#0b6fc2' },
+      pdpk: { label: 'PDPK', color: '#6b2fa0' }
+    };
+    var AKUN_ORDER = ['usaha', 'retensi', 'tagbrut', 'pdpk'];
+    var UNIT_KERJA = ['Infra 1', 'Infra 2', 'Building', 'EPCC'];
+
+    // Bucket umur, urut dari Lancar ke Macet. max = batas atas hari (inklusif).
+    var AGES_PIUTANG = [
+      { max: 30, label: '1-30 Hari', kol: 'Lancar', color: '#2e9e5b', dark: true },
+      { max: 60, label: '31-60 Hari', kol: 'Dalam Perhatian Khusus', color: '#8cc84b' },
+      { max: 75, label: '61-75 Hari', kol: 'Kurang Lancar', color: '#f2d43a' },
+      { max: 90, label: '76-90 Hari', kol: 'Diragukan', color: '#f5a524' },
+      { max: Infinity, label: '>90 Hari', kol: 'Macet', color: '#dc3b2f', dark: true }
+    ];
+    var AGES_PDPK = [
+      { max: 30, label: '1-30 Hari', kol: 'Lancar', color: '#f2d43a' },
+      { max: 90, label: '31-90 Hari', kol: 'Dalam Perhatian Khusus', color: '#f5a524' },
+      { max: 120, label: '91-120 Hari', kol: 'Kurang Lancar', color: '#dc3b2f', dark: true },
+      { max: 180, label: '121-180 Hari', kol: 'Diragukan', color: '#a8201a', dark: true },
+      { max: Infinity, label: '>180 Hari', kol: 'Macet', color: '#4f1a47', dark: true }
+    ];
+    // Bucket nilai dalam Triliun Rupiah.
+    var VALUE_BUCKETS = [
+      { max: 0.5, label: '100 M - 500 M' },
+      { max: 1.0, label: '500 M - 1 T' },
+      { max: 1.5, label: '1 T - 1,5 T' },
+      { max: 2.0, label: '1,5 T - 2 T' },
+      { max: Infinity, label: '> 2 T' }
+    ];
+
+    var ARMS_MATRICES = [
+      { id: 'ongoing', title: 'Project On Going', sub: 'Piutang Usaha, Retensi, Tagbrut & PDPK', status: 'On Going', akun: ['usaha', 'retensi', 'tagbrut', 'pdpk'], ages: AGES_PIUTANG },
+      { id: 'pho-piutang', title: 'Project PHO — Piutang & Tagbrut', sub: 'Piutang Usaha, Retensi & Tagbrut', status: 'PHO', akun: ['usaha', 'retensi', 'tagbrut'], ages: AGES_PIUTANG },
+      { id: 'pho-pdpk', title: 'Project PHO — PDPK', sub: 'Pendapatan Dalam Penyelesaian Kontrak', status: 'PHO', akun: ['pdpk'], ages: AGES_PDPK }
+    ];
+
+    function bucketIndex(v, buckets) {
+      for (var i = 0; i < buckets.length; i++) { if (v <= buckets[i].max) return i; }
+      return buckets.length - 1;
+    }
+
+    function fmtRp(n) {
+      if (!n) return '–';
+      return (n < 0 ? '-Rp ' : 'Rp ') + Math.abs(Math.round(n)).toLocaleString('id-ID');
+    }
+
+    function fmtT(n) {
+      return n >= 1e12
+        ? 'Rp ' + (n / 1e12).toLocaleString('id-ID', { maximumFractionDigits: 2 }) + ' T'
+        : 'Rp ' + (n / 1e9).toLocaleString('id-ID', { maximumFractionDigits: 1 }) + ' M';
+    }
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
+    }
+
+    function projectTotal(p) {
+      return AKUN_ORDER.reduce(function (s, k) { return s + (p.akun[k] ? p.akun[k].nilai : 0); }, 0);
+    }
+
+    // Kolektabilitas terburuk proyek: skala PDPK untuk akun PDPK, skala piutang untuk akun lain.
+    function worstKol(p) {
+      var worst = -1;
+      AKUN_ORDER.forEach(function (k) {
+        var a = p.akun[k];
+        if (!a || !a.nilai) return;
+        worst = Math.max(worst, bucketIndex(a.hari, k === 'pdpk' ? AGES_PDPK : AGES_PIUTANG));
+      });
+      return worst;
+    }
+
+    function kolPillClass(i) { return i <= 0 ? 'ok' : (i <= 2 ? 'warn' : 'bad'); }
+
+    /* ---------- Overview: ARMS Matrix ---------- */
+    function renderArmsLegend() {
+      document.getElementById('arms-legend').innerHTML = AKUN_ORDER.map(function (k) {
+        return '<span><i style="background:' + AKUN_META[k].color + '"></i>' + AKUN_META[k].label + '</span>';
+      }).join('') + '<span>Angka di bubble = nomor proyek</span>';
+    }
+
+    function buildArmsCard(def) {
+      var card = document.createElement('div');
+      card.className = 'arms-card';
+      var akunOpts = def.akun.length > 1
+        ? '<option value="All">All</option>' + def.akun.map(function (k) { return '<option value="' + k + '">' + AKUN_META[k].label + '</option>'; }).join('')
+        : '<option value="' + def.akun[0] + '">' + AKUN_META[def.akun[0]].label + '</option>';
+      card.innerHTML =
+        '<h3>' + def.title + '</h3><div class="arms-sub">' + def.sub + '</div>' +
+        '<div class="arms-filters">' +
+        '<label>Unit Kerja<select data-f="unit"><option value="All">All</option>' +
+        UNIT_KERJA.map(function (u) { return '<option>' + u + '</option>'; }).join('') + '</select></label>' +
+        '<label>Proyek<select data-f="proyek"></select></label>' +
+        '<label>Jenis<select data-f="akun"' + (def.akun.length > 1 ? '' : ' disabled') + '>' + akunOpts + '</select></label>' +
+        '</div><div class="arms-matrix"></div>';
+
+      var selUnit = card.querySelector('[data-f="unit"]');
+      var selProyek = card.querySelector('[data-f="proyek"]');
+      var selAkun = card.querySelector('[data-f="akun"]');
+
+      function fillProyek() {
+        var prev = selProyek.value;
+        var keys = Object.keys(PIUTANG_PROJECTS).filter(function (key) {
+          var p = PIUTANG_PROJECTS[key];
+          return p.status === def.status && (selUnit.value === 'All' || p.unit === selUnit.value);
+        });
+        selProyek.innerHTML = '<option value="All">All</option>' + keys.map(function (key) {
+          return '<option value="' + key + '">' + PIUTANG_PROJECTS[key].no + '. ' + esc(PIUTANG_PROJECTS[key].nama) + '</option>';
+        }).join('');
+        selProyek.value = keys.indexOf(prev) >= 0 ? prev : 'All';
+      }
+
+      function draw() {
+        var m = card.querySelector('.arms-matrix');
+        var rows = def.ages.length, cols = VALUE_BUCKETS.length;
+        var cells = [];
+        for (var r = 0; r < rows; r++) { cells.push([]); for (var c = 0; c < cols; c++) cells[r].push([]); }
+
+        var count = 0;
+        Object.keys(PIUTANG_PROJECTS).forEach(function (key) {
+          var p = PIUTANG_PROJECTS[key];
+          if (p.status !== def.status) return;
+          if (selUnit.value !== 'All' && p.unit !== selUnit.value) return;
+          if (selProyek.value !== 'All' && key !== selProyek.value) return;
+          def.akun.forEach(function (k) {
+            if (selAkun.value !== 'All' && selAkun.value !== k) return;
+            var a = p.akun[k];
+            if (!a || !a.nilai) return;
+            cells[bucketIndex(a.hari, def.ages)][bucketIndex(a.nilai / 1e12, VALUE_BUCKETS)].push({ key: key, p: p, k: k, a: a });
+            count++;
+          });
+        });
+
+        var html = '';
+        for (var ri = rows - 1; ri >= 0; ri--) {
+          var age = def.ages[ri];
+          html += '<div class="arms-age">' + age.label + '</div>';
+          for (var ci = 0; ci < cols; ci++) {
+            html += '<div class="arms-cell" style="background:' + age.color + '">' + cells[ri][ci].map(function (b) {
+              var tip = b.p.no + '. ' + b.p.nama + '\n' + AKUN_META[b.k].label + ': ' + fmtT(b.a.nilai) + ' · ' + b.a.hari + ' hari';
+              return '<button class="arms-bubble" data-key="' + b.key + '" style="background:' + AKUN_META[b.k].color +
+                '" title="' + esc(tip) + '" aria-label="' + esc(tip) + '">' + b.p.no + '</button>';
+            }).join('') + '</div>';
+          }
+          html += '<div class="arms-kol">' + age.kol + '</div>';
+        }
+        html += '<div></div>' + VALUE_BUCKETS.map(function (v) { return '<div class="arms-xlabel">' + v.label + '</div>'; }).join('') + '<div></div>';
+        html += '<div></div><div class="arms-xtitle">Nilai Rupiah &rarr;</div>';
+        if (!count) html += '<div class="arms-empty" style="grid-column:1/-1">Tidak ada data untuk filter ini.</div>';
+        m.innerHTML = html;
+        m.querySelectorAll('.arms-bubble').forEach(function (btn) {
+          btn.addEventListener('click', function () { openPiutangDetail(btn.getAttribute('data-key'), 'overview'); });
+        });
+      }
+
+      selUnit.addEventListener('change', function () { fillProyek(); draw(); });
+      selProyek.addEventListener('change', draw);
+      selAkun.addEventListener('change', draw);
+      fillProyek();
+      draw();
+      return card;
+    }
+
+    function renderArmsOverview() {
+      renderArmsLegend();
+      var grid = document.getElementById('arms-grid');
+      grid.innerHTML = '';
+      ARMS_MATRICES.forEach(function (def) { grid.appendChild(buildArmsCard(def)); });
+    }
+
+    /* ---------- Tab Piutang: KPI + daftar proyek ---------- */
+    function renderPiutangList() {
+      var keys = Object.keys(PIUTANG_PROJECTS).sort(function (a, b) { return PIUTANG_PROJECTS[a].no - PIUTANG_PROJECTS[b].no; });
+      var total = 0, over90 = 0, klaim = 0;
+      keys.forEach(function (key) {
+        var p = PIUTANG_PROJECTS[key];
+        total += projectTotal(p);
+        AKUN_ORDER.forEach(function (k) { if (p.akun[k] && p.akun[k].hari > 90) over90 += p.akun[k].nilai; });
+        (p.klaim || []).forEach(function (c) { klaim += c.submission || 0; });
+      });
+      var onGoing = keys.filter(function (k) { return PIUTANG_PROJECTS[k].status === 'On Going'; }).length;
+      var kpis = [
+        ['Total Piutang & PDPK', fmtT(total), 'Usaha + Retensi + Tagbrut + PDPK'],
+        ['Umur > 90 Hari', fmtT(over90), total ? Math.round(over90 / total * 100) + '% dari total' : '–'],
+        ['Jumlah Proyek', keys.length + ' Proyek', onGoing + ' On Going · ' + (keys.length - onGoing) + ' PHO'],
+        ['Klaim Diajukan', fmtT(klaim), 'Total submission VO/Claim']
+      ];
+      document.getElementById('pt-kpi').innerHTML = kpis.map(function (k) {
+        return '<div class="kpi-card"><div class="label">' + k[0] + '</div><div class="value">' + k[1] + '</div><div class="caption">' + k[2] + '</div></div>';
+      }).join('');
+
+      var tbody = document.getElementById('pt-list');
+      tbody.innerHTML = '';
+      keys.forEach(function (key) {
+        var p = PIUTANG_PROJECTS[key];
+        var w = worstKol(p);
+        var kolLabel = w < 0 ? '–' : AGES_PIUTANG[w].kol;
+        var tr = document.createElement('tr');
+        tr.className = 'clickable';
+        tr.innerHTML =
+          '<td>' + p.no + '</td>' +
+          '<td class="num">' + esc(p.kode) + '</td>' +
+          '<td class="name">' + esc(p.nama) + '</td>' +
+          '<td>' + esc(p.unit) + '</td>' +
+          '<td><span class="pill ' + (p.status === 'PHO' ? 'ok' : 'warn') + '">' + p.status + '</span></td>' +
+          '<td class="num r">' + fmtRp(projectTotal(p)) + '</td>' +
+          '<td>' + (w < 0 ? '–' : '<span class="pill ' + kolPillClass(w) + '">' + kolLabel + '</span>') + '</td>';
+        tr.addEventListener('click', function () { openPiutangDetail(key, 'piutang'); });
+        tbody.appendChild(tr);
+      });
+    }
+
+    /* ---------- Detail piutang per proyek ---------- */
+    var piutangBackTarget = 'piutang';
+
+    function renderPiutangDetail(key) {
+      var p = PIUTANG_PROJECTS[key];
+      if (!p) return;
+      var h = p.header || {};
+      document.getElementById('pd-title').textContent = p.nama;
+      document.getElementById('pd-sub').textContent = 'Input & Monitoring Project ' + p.status + ' · ' + p.kode + ' · ' + p.unit;
+
+      document.getElementById('pd-meta').innerHTML =
+        '<div class="kpi-card"><div class="label">PIC Data</div><div class="value">' + esc(h.pic || '–') + '</div></div>' +
+        '<div class="kpi-card"><div class="label">Validasi / Otorisasi</div><ul class="check-list">' +
+        (h.validasi || []).map(function (v) {
+          return '<li><span>' + esc(v[0]) + '</span><span class="' + (v[1] ? 'yes' : 'no') + '">' + (v[1] ? '✓' : '✗') + '</span></li>';
+        }).join('') + '</ul></div>' +
+        '<div class="kpi-card"><div class="label">Periode Data</div><div class="value">Tahun ' + (h.tahun || '–') +
+        '</div><div class="caption">Bulan ' + (h.bulan || '–') + ' · Minggu ke-' + (h.minggu || '–') + '</div></div>' +
+        '<div class="kpi-card"><div class="label">Cara Pembayaran</div><div class="value">' + esc(p.caraBayar || '–') + '</div></div>';
+
+      document.getElementById('pd-summary').innerHTML = p.summary.map(function (r) {
+        return '<div class="info-row"><div class="label">' + esc(r[0]) + '</div><div class="value">' + esc(r[1]) + '</div></div>';
+      }).join('');
+
+      var tl = p.tindakLanjut || [];
+      document.getElementById('pd-tl').innerHTML = tl.length ? tl.map(function (t) {
+        return '<tr><td class="wrap">' + esc(t.uraian) + '</td><td>' + esc(t.target || '–') + '</td><td>' + esc(t.pic || '–') + '</td><td>' + esc(t.status || '–') + '</td></tr>';
+      }).join('') : '<tr><td colspan="4">Belum ada tindak lanjut.</td></tr>';
+
+      // Akun PDPK & Piutang per bucket umur (skala Excel: 1-30 s.d. >90 hari)
+      document.getElementById('pd-akun-head').innerHTML = '<tr><th>No</th><th>Uraian</th>' +
+        AGES_PIUTANG.map(function (a) {
+          return '<th class="age' + (a.dark ? ' dark' : '') + '" style="background:' + a.color + '">' + a.label + '</th>';
+        }).join('') + '<th class="r">Total</th><th class="r">CKPN</th></tr>';
+      var colTotals = AGES_PIUTANG.map(function () { return 0; });
+      var rowsHtml = AKUN_ORDER.map(function (k, i) {
+        var a = p.akun[k];
+        var idx = a && a.nilai ? bucketIndex(a.hari, AGES_PIUTANG) : -1;
+        if (idx >= 0) colTotals[idx] += a.nilai;
+        return '<tr><td>' + (i + 1) + '</td><td class="name">' + AKUN_META[k].label + '</td>' +
+          AGES_PIUTANG.map(function (_, ci) { return '<td class="num r">' + (ci === idx ? fmtRp(a.nilai) : '') + '</td>'; }).join('') +
+          '<td class="num r">' + fmtRp(idx >= 0 ? a.nilai : 0) + '</td><td class="num r"></td></tr>';
+      }).join('');
+      var grand = colTotals.reduce(function (s, v) { return s + v; }, 0);
+      rowsHtml += '<tr class="total-row"><td></td><td>Total</td>' +
+        colTotals.map(function (v) { return '<td class="num r">' + fmtRp(v) + '</td>'; }).join('') +
+        '<td class="num r">' + fmtRp(grand) + '</td><td class="num r">' + fmtRp(p.ckpn) + '</td></tr>';
+      document.getElementById('pd-akun').innerHTML = rowsHtml;
+
+      // Claim Summary
+      var kl = p.klaim || [];
+      var sum = { submission: 0, negotiation: 0, approved: 0, nilaiAtasPdpk: 0 };
+      var klHtml = kl.map(function (c, i) {
+        Object.keys(sum).forEach(function (f) { sum[f] += c[f] || 0; });
+        var pdpk = c.bagianPdpk === true ? 'Ya ✓' : (c.bagianPdpk === false ? 'Tidak ✓' : '–');
+        return '<tr><td>' + (i + 1) + '</td><td class="name">' + esc(c.uraian) + '</td><td class="wrap">' + esc(c.noDok || '–') + '</td>' +
+          '<td>' + pdpk + '</td><td class="num r">' + fmtRp(c.submission) + '</td><td class="num r">' + fmtRp(c.negotiation) +
+          '</td><td class="num r">' + fmtRp(c.approved) + '</td><td class="num r">' + fmtRp(c.nilaiAtasPdpk) + '</td></tr>';
+      }).join('');
+      klHtml += kl.length
+        ? '<tr class="total-row"><td></td><td>Total</td><td></td><td></td><td class="num r">' + fmtRp(sum.submission) +
+          '</td><td class="num r">' + fmtRp(sum.negotiation) + '</td><td class="num r">' + fmtRp(sum.approved) +
+          '</td><td class="num r">' + fmtRp(sum.nilaiAtasPdpk) + '</td></tr>'
+        : '<tr><td colspan="8">Belum ada klaim.</td></tr>';
+      document.getElementById('pd-klaim').innerHTML = klHtml;
+    }
+
+    function openPiutangDetail(key, from) {
+      piutangBackTarget = from || 'piutang';
+      document.getElementById('pd-back').innerHTML = '&larr; Kembali ke ' + (piutangBackTarget === 'overview' ? 'Overview' : 'Daftar Proyek Piutang');
+      renderPiutangDetail(key);
+      showPage('piutang-detail');
+    }
+
+    document.getElementById('pd-back').addEventListener('click', function () { showPage(piutangBackTarget); });
+
+    renderArmsOverview();
+    renderPiutangList();
 
     document.querySelectorAll('[data-goto]').forEach(function (el) {
       el.addEventListener('click', function () {
