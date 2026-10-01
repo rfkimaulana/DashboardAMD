@@ -745,10 +745,10 @@
 
     .arms-filters {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 8px;
       margin-bottom: 12px;
-      max-width: 720px;
+      max-width: 900px;
     }
 
     .arms-filters label {
@@ -2009,7 +2009,7 @@
         header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', false], ['MOF', false]], tahun: 2026, bulan: 9, minggu: 4 },
         summary: [['Kode Profit Center', 'DUMMY-04'], ['Nama Proyek', 'Proyek D (contoh)']],
         tindakLanjut: [{ uraian: 'Data contoh — belum ada tindak lanjut' }],
-        akun: { retensi: { hari: 65, nilai: 120000000000 }, pdpk: { hari: 110, nilai: 850000000000 } },
+        akun: { usaha: { hari: 1200, nilai: 150000000000 }, retensi: { hari: 65, nilai: 120000000000 }, pdpk: { hari: 110, nilai: 850000000000 } },
         ckpn: 0, klaim: []
       },
       // DUMMY
@@ -2027,7 +2027,7 @@
         header: { pic: 'MP', validasi: [['SVP', true], ['M. ADCON', true], ['MOF', true]], tahun: 2026, bulan: 9, minggu: 4 },
         summary: [['Kode Profit Center', 'DUMMY-06'], ['Nama Proyek', 'Proyek F (contoh)']],
         tindakLanjut: [{ uraian: 'Data contoh — belum ada tindak lanjut' }],
-        akun: { usaha: { hari: 35, nilai: 400000000000 }, pdpk: { hari: 85, nilai: 900000000000 } },
+        akun: { usaha: { hari: 35, nilai: 400000000000 }, retensi: { hari: 400, nilai: 300000000000 }, pdpk: { hari: 85, nilai: 900000000000 } },
         ckpn: 0, klaim: []
       }
     };
@@ -2056,6 +2056,14 @@
       { max: 180, label: '121-180 Hari', kol: 'Diragukan', color: '#a8201a', dark: true },
       { max: Infinity, label: '>180 Hari', kol: 'Macet', color: '#4f1a47', dark: true }
     ];
+    // Sheet ARMS Map (Masalah): hanya akun > 90 hari. kolSpan = label kolektabilitas digabung ke bawah.
+    var AGES_MASALAH = [
+      { max: 120, label: '91-120 Hari', color: '#ff3b2f', dark: true },
+      { max: 180, label: '121-180 Hari', color: '#d91515', dark: true },
+      { max: 365, label: '181-365 Hari', color: '#b40000', dark: true },
+      { max: 1095, label: '366-1095 Hari', kol: 'Bermasalah', kolSpan: 4, color: '#990000', dark: true },
+      { max: Infinity, label: '> 1095 Hari', kol: 'Gagal Bayar', color: '#800000', dark: true }
+    ];
     // Bucket nilai dalam Triliun Rupiah.
     var VALUE_BUCKETS = [
       { max: 0.5, label: '100 M - 500 M' },
@@ -2068,8 +2076,10 @@
     var ARMS_MATRICES = [
       { id: 'ongoing', title: 'Project On Going', sub: 'Piutang Usaha, Retensi, Tagbrut & PDPK', status: 'On Going', akun: ['usaha', 'retensi', 'tagbrut', 'pdpk'], ages: AGES_PIUTANG },
       { id: 'pho-piutang', title: 'Project PHO — Piutang & Tagbrut', sub: 'Piutang Usaha, Retensi & Tagbrut', status: 'PHO', akun: ['usaha', 'retensi', 'tagbrut'], ages: AGES_PIUTANG },
-      { id: 'pho-pdpk', title: 'Project PHO — PDPK', sub: 'Pendapatan Dalam Penyelesaian Kontrak', status: 'PHO', akun: ['pdpk'], ages: AGES_PDPK }
+      { id: 'pho-pdpk', title: 'Project PHO — PDPK', sub: 'Pendapatan Dalam Penyelesaian Kontrak', status: 'PHO', akun: ['pdpk'], ages: AGES_PDPK },
+      { id: 'masalah', title: 'Piutang Bermasalah (> 90 Hari)', sub: 'Seluruh jenis piutang & PDPK berumur lebih dari 90 hari', status: 'All', statusFilter: true, minHari: 91, akun: ['usaha', 'retensi', 'tagbrut', 'pdpk'], ages: AGES_MASALAH }
     ];
+    var STATUS_PROYEK = ['On Going', 'PHO', 'FHO'];
 
     function bucketIndex(v, buckets) {
       for (var i = 0; i < buckets.length; i++) { if (v <= buckets[i].max) return i; }
@@ -2124,6 +2134,8 @@
       card.innerHTML =
         '<h3>' + def.title + '</h3><div class="arms-sub">' + def.sub + '</div>' +
         '<div class="arms-filters">' +
+        (def.statusFilter ? '<label>Status Proyek<select data-f="status"><option value="All">All</option>' +
+          STATUS_PROYEK.map(function (s) { return '<option>' + s + '</option>'; }).join('') + '</select></label>' : '') +
         '<label>Unit Kerja<select data-f="unit"><option value="All">All</option>' +
         UNIT_KERJA.map(function (u) { return '<option>' + u + '</option>'; }).join('') + '</select></label>' +
         '<label>Proyek<select data-f="proyek"></select></label>' +
@@ -2133,12 +2145,18 @@
       var selUnit = card.querySelector('[data-f="unit"]');
       var selProyek = card.querySelector('[data-f="proyek"]');
       var selAkun = card.querySelector('[data-f="akun"]');
+      var selStatus = card.querySelector('[data-f="status"]');
+
+      function statusMatch(p) {
+        var s = selStatus ? selStatus.value : def.status;
+        return s === 'All' || p.status === s;
+      }
 
       function fillProyek() {
         var prev = selProyek.value;
         var keys = Object.keys(PIUTANG_PROJECTS).filter(function (key) {
           var p = PIUTANG_PROJECTS[key];
-          return p.status === def.status && (selUnit.value === 'All' || p.unit === selUnit.value);
+          return statusMatch(p) && (selUnit.value === 'All' || p.unit === selUnit.value);
         });
         selProyek.innerHTML = '<option value="All">All</option>' + keys.map(function (key) {
           return '<option value="' + key + '">' + PIUTANG_PROJECTS[key].no + '. ' + esc(PIUTANG_PROJECTS[key].nama) + '</option>';
@@ -2155,13 +2173,14 @@
         var count = 0;
         Object.keys(PIUTANG_PROJECTS).forEach(function (key) {
           var p = PIUTANG_PROJECTS[key];
-          if (p.status !== def.status) return;
+          if (!statusMatch(p)) return;
           if (selUnit.value !== 'All' && p.unit !== selUnit.value) return;
           if (selProyek.value !== 'All' && key !== selProyek.value) return;
           def.akun.forEach(function (k) {
             if (selAkun.value !== 'All' && selAkun.value !== k) return;
             var a = p.akun[k];
             if (!a || !a.nilai) return;
+            if (def.minHari && a.hari < def.minHari) return;
             cells[bucketIndex(a.hari, def.ages)][bucketIndex(a.nilai / 1e12, VALUE_BUCKETS)].push({ key: key, p: p, k: k, a: a });
             count++;
           });
@@ -2178,7 +2197,8 @@
                 '" title="' + esc(tip) + '" aria-label="' + esc(tip) + '">' + b.p.no + '</button>';
             }).join('') + '</div>';
           }
-          html += '<div class="arms-kol">' + age.kol + '</div>';
+          // Baris tanpa kol tertutup label kolSpan dari baris di atasnya.
+          if (age.kol) html += '<div class="arms-kol"' + (age.kolSpan ? ' style="grid-row:span ' + age.kolSpan + '"' : '') + '>' + age.kol + '</div>';
         }
         html += '<div></div>' + VALUE_BUCKETS.map(function (v) { return '<div class="arms-xlabel">' + v.label + '</div>'; }).join('') + '<div></div>';
         html += '<div></div><div class="arms-xtitle">Nilai Rupiah &rarr;</div>';
@@ -2189,6 +2209,7 @@
         });
       }
 
+      if (selStatus) selStatus.addEventListener('change', function () { fillProyek(); draw(); });
       selUnit.addEventListener('change', function () { fillProyek(); draw(); });
       selProyek.addEventListener('change', draw);
       selAkun.addEventListener('change', draw);
